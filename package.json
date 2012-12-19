@@ -1,14 +1,14 @@
 {
   "name": "l2b-demo-app",
   "version": "0.0.0",
-  "description": "Demo app for the linktobooks components",
+  "description": "Demo app for the LinkToBooks components",
   "main": "index.js",
   "scripts": {
     "test": "make test"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/linktobooks/l2b-demo-app.git"
+    "url": "git://github.com/LinkToBooks/l2b-demo-app.git"
   },
   "dependencies": {
     "express": ">= 3"
