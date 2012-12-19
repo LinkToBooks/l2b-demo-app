@@ -14,6 +14,6 @@
     "express": ">= 3"
   },
   "author": "",
-  "license": "BSD",
+  "license": "AGPLv3",
   "readmeFilename": "README.md"
 }
