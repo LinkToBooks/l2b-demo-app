@@ -1,4 +1,3 @@
-
 all: node-modules
 
 node-modules:
@@ -6,7 +5,7 @@ node-modules:
 	npm prune
 
 jshint:
-	jshint --config config/jshint-node.json *.js
+	node_modules/.bin/jshint --config config/jshint-node.json *.js
 
 test: jshint
 
