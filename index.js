@@ -6,9 +6,9 @@ module.exports = function () {
   
   var app = express();
 
-  app.all('*', function (req, res) {
-    res.send('l2b-demo-app at your service');
-  });
+  var publicDir = __dirname + '/public';
+
+  app.use( '/', express.static( publicDir ) );
 
   return app;
 }
