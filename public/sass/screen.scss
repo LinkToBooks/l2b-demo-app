@@ -1,6 +1,22 @@
-/* Welcome to Compass.
- * In this file you should write your main styles. (or centralize your imports)
- * Import this file using the following HTML or equivalent:
- * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
-
 @import "compass/reset";
+
+body {
+  font-family: Helvetica, Arial;
+  font-size: 16px;
+}
+
+body > * {
+  padding: 1em;
+}
+
+h1, h2, h3, h4 {
+  font-family: Palatino;
+}
+
+h1 { font-size: 2em; }
+h2 { font-size: 1.5em; }
+h3 { font-size: 1.25em; }
+h4 { font-size: 1em; }
+
+header { border-bottom: 1px solid #888;}
+footer { border-top:    1px solid #888;}
