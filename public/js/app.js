@@ -5,6 +5,10 @@
   
   var L2BDemoApp = new Backbone.Marionette.Application();
 
+  L2BDemoApp.on("initialize:after", function(options){
+    Backbone.history.start();
+  });
+  
   var BookModel = Backbone.Model.extend({
     urlRoot: "http://api.127.0.0.1.xip.io:3000/books/"
   });
@@ -54,7 +58,7 @@
   
   $(function () {
     new SearchView({el: $("#search-box")});
-    Backbone.history.start();
+    L2BDemoApp.start();
   });
 
 })();
