@@ -15,6 +15,7 @@
     <script src="/js-libs/jquery-1.8.3.min.js" type="text/javascript"></script>
     <script src="/js-libs/underscore-1.4.3.js" type="text/javascript"></script>
     <script src="/js-libs/backbone-0.9.9.js"   type="text/javascript"></script>
+    <script src="/js/app.js"                   type="text/javascript"></script>
 
   </head>
 
@@ -30,10 +31,14 @@
       <h1>LinkToBooks demo app</h1>
     </header>
     
-    <div id="loading_placeholder">
-      Loading site content&hellip;
+    <div id="search-box">
+      <form>
+        <input type="search" name="isbn" placeholder="ISBN number" />
+        <input type="submit" value="Go" />
+        (McGee on food: 0340831499)
+      </form>
     </div>
-            
+
     <footer>
       <a href="https://github.com/LinkToBooks/l2b-demo-app">The code for this website is on Github</a>
     </footer>
