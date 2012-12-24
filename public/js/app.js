@@ -23,7 +23,7 @@
   
       var content = _.template(
         $("#book-view-template").text(),
-        data
+        { book: data }
       );
       this.$el.html(content);
   
