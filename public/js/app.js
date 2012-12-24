@@ -10,26 +10,15 @@
   });
   
   
-  var BookView = Backbone.View.extend({
+  var BookView = Backbone.Marionette.ItemView.extend({
+    template: "#book-view-template",
+
     el: function () {
       return $("#book-view");
     },
     
     initialize: function () {
       this.listenTo(this.model, "change", this.render);
-    },
-  
-    render: function () {
-
-      var data = this.model ? this.model.toJSON() : {};
-  
-      var content = _.template(
-        $("#book-view-template").text(),
-        { book: data }
-      );
-      this.$el.html(content);
-  
-      return this;
     }
   });
   
@@ -43,7 +32,6 @@
       var model = new BookModel({ id: isbn });
       var view = new BookView({ model: model });
   
-      view.render();
       model.fetch();
     }
   });

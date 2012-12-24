@@ -51,12 +51,12 @@
 </html>
 
 <script id="book-view-template" type="text/template">
-  <h1><%- book.title || 'Fetching title...' %></h1>
+  <h1><%- title || 'Fetching title...' %></h1>
   
   <p>
-    <strong>author:</strong> <%- book.author || '???' %>
+    <strong>author:</strong> <%- author || '???' %>
   </p>
   <p>
-    <strong>isbn:</strong> <%- book.isbn || '???' %>
+    <strong>isbn:</strong> <%- isbn || '???' %>
   </p>
 </script>
