@@ -19,9 +19,6 @@
   
     render: function () {
 
-      console.log("BookView render");
-      console.log(this.model.url());
-  
       var data = this.model ? this.model.toJSON() : {};
   
       var content = _.template(
@@ -40,11 +37,10 @@
     },
     
     isbnDisplay: function (isbn) {
-      console.log("isbn router: " + isbn);
-  
+
       var model = new BookModel({ id: isbn });
-  
       var view = new BookView({ model: model });
+  
       view.render();
       model.fetch();
     }
@@ -62,8 +58,6 @@
   
       var isbn = this.$("input[name=isbn]").val();
   
-      console.log("doing a search for " + isbn);
-      
       appRouter.navigate("isbn/" + isbn, {trigger: true});
     }
   });
