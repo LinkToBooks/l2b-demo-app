@@ -4,7 +4,7 @@
   "use strict";
   
   var BookModel = Backbone.Model.extend({
-    urlRoot: "http://api.127.0.0.1.xip.io/api/books/"
+    urlRoot: "http://api.127.0.0.1.xip.io:3000/books/"
   });
   
   
