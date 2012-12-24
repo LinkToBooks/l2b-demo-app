@@ -3,6 +3,8 @@
 (function () {
   "use strict";
   
+  var L2BDemoApp = new Backbone.Marionette.Application();
+
   var BookModel = Backbone.Model.extend({
     urlRoot: "http://api.127.0.0.1.xip.io:3000/books/"
   });
