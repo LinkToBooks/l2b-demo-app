@@ -1,11 +1,11 @@
-/*global Backbone:false, $:false, _:false */
+/*global Backbone:false, $:false */
 
 (function () {
   "use strict";
   
   var L2BDemoApp = new Backbone.Marionette.Application();
 
-  L2BDemoApp.on("initialize:after", function(options){
+  L2BDemoApp.on("initialize:after", function () {
     Backbone.history.start();
   });
   
@@ -23,7 +23,7 @@
     
   });
   
-  L2BDemoApp.addInitializer(function (options) {
+  L2BDemoApp.addInitializer(function () {
     L2BDemoApp.layout = new Layout();
     L2BDemoApp.layout.render();
   });
@@ -31,9 +31,9 @@
   var BookModel = Backbone.Model.extend({
     urlRoot: "http://api.127.0.0.1.xip.io:3000/books/",
     defaults: {
-      title: '',
-      isbn: '',
-      author: ''
+      title: "",
+      isbn: "",
+      author: ""
     }
   });
   
@@ -61,13 +61,13 @@
   
   var PriceModel = Backbone.Model.extend({
     defaults: {
-      price: ''
+      price: ""
     }
   });
   
   var PriceCollection = Backbone.Collection.extend({
     model: PriceModel,
-    comparator: 'price'
+    comparator: "price"
   });
   
   var Router = Backbone.Router.extend({
@@ -86,7 +86,7 @@
 
       // Get the prices
       var prices = new PriceCollection();
-      prices.url = book.url() + '/prices';
+      prices.url = book.url() + "/prices";
       prices.fetch();
       L2BDemoApp.layout.pricesBox.show(
         new PricesView({ collection: prices })
@@ -117,9 +117,9 @@
     }
   });
 
-  L2BDemoApp.addInitializer( function (options) {
+  L2BDemoApp.addInitializer(function () {
     var view = new SearchView();
-    L2BDemoApp.layout.searchBox.show( view );
+    L2BDemoApp.layout.searchBox.show(view);
     view.render();
   });
   
