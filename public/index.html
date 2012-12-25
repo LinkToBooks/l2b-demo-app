@@ -50,6 +50,9 @@
   <div id="book-box">      
   </div>
 
+  <div id="prices-box">
+  </div>
+
 </script>
 
 <script id="search-box-template" type="text/template">
@@ -72,3 +75,20 @@
   </p>
 
 </script>
+
+<script id="price-template" type="text/template">
+
+    <p>
+      <strong>price:</strong> <%- price || '???' %>
+    </p>
+
+</script>
+
+<script id="price-none-template" type="text/template">
+
+    <p>
+      There are no prices to show
+    </p>
+
+</script>
+

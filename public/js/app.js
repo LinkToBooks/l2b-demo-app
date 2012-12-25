@@ -17,7 +17,8 @@
   
     regions: {
       searchBox: "#search-box",
-      bookBox:   "#book-box"
+      bookBox:   "#book-box",
+      pricesBox: "#prices-box"
     }
     
   });
@@ -45,6 +46,30 @@
     }
   });
   
+  var PriceView  = Backbone.Marionette.ItemView.extend({
+    template: "#price-template"
+  });
+  
+  var PriceEmptyView  = Backbone.Marionette.ItemView.extend({
+    template: "#price-none-template"
+  });
+  
+  var PricesView = Backbone.Marionette.CollectionView.extend({
+    itemView: PriceView,
+    emptyView: PriceEmptyView
+  });
+  
+  var PriceModel = Backbone.Model.extend({
+    defaults: {
+      price: ''
+    }
+  });
+  
+  var PriceCollection = Backbone.Collection.extend({
+    model: PriceModel,
+    comparator: 'price'
+  });
+  
   var Router = Backbone.Router.extend({
     routes: {
       "isbn/:isbn": "isbnDisplay"
@@ -52,11 +77,20 @@
     
     isbnDisplay: function (isbn) {
 
-      var model = new BookModel({ id: isbn });
-      var view  = new BookView({ model: model });
-      L2BDemoApp.layout.bookBox.show(view);
-  
-      model.fetch();
+      // Get the book details
+      var book = new BookModel({ id: isbn });
+      book.fetch();
+      L2BDemoApp.layout.bookBox.show(
+        new BookView({ model: book })
+      );
+
+      // Get the prices
+      var prices = new PriceCollection();
+      prices.url = book.url() + '/prices';
+      prices.fetch();
+      L2BDemoApp.layout.pricesBox.show(
+        new PricesView({ collection: prices })
+      );
 
     }
   });
