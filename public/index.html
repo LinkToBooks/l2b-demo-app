@@ -32,17 +32,9 @@
       <h1>LinkToBooks demo app</h1>
     </header>
     
-    <div id="search-box">
-      <form>
-        <input type="search" name="isbn" placeholder="ISBN number" />
-        <input type="submit" value="Go" />
-        (McGee on food: 0340831499)
-      </form>
+    <div id="content">
+      
     </div>
-
-    <div id="book-view">      
-    </div>
-
     <footer>
       <a href="https://github.com/LinkToBooks/l2b-demo-app">The code for this website is on Github</a>
     </footer>
@@ -50,7 +42,26 @@
   </body>
 </html>
 
-<script id="book-view-template" type="text/template">
+<script id="layout-template" type="text/template">
+
+  <div id="search-box">
+  </div>
+  
+  <div id="book-box">      
+  </div>
+
+</script>
+
+<script id="search-box-template" type="text/template">
+  <form>
+    <input type="search" name="isbn" placeholder="ISBN number" />
+    <input type="submit" value="Go" />
+    (McGee on food: 0340831499)
+  </form>
+</script>
+
+<script id="book-box-template" type="text/template">
+
   <h1><%- title || 'Fetching title...' %></h1>
   
   <p>
@@ -59,4 +70,5 @@
   <p>
     <strong>isbn:</strong> <%- isbn || '???' %>
   </p>
+
 </script>
