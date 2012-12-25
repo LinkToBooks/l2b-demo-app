@@ -24,3 +24,11 @@ strong {
 
 header { border-bottom: 1px solid #888;}
 footer { border-top:    1px solid #888;}
+
+#search-box, #book-box {
+  margin: 1em;
+  padding: 1em;
+  background-color: #eee;
+  border-radius: 0.5em;
+}
+
