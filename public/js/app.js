@@ -70,10 +70,14 @@
       "submit form": "doSearch"
     },
     
+    ui: {
+      isbnInput: "input[name=isbn]"
+    },
+    
     doSearch: function (e) {
       e.preventDefault();
   
-      var isbn = this.$("input[name=isbn]").val();
+      var isbn = this.ui.isbnInput.val();
   
       appRouter.navigate("isbn/" + isbn, {trigger: true});
     }
