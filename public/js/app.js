@@ -16,9 +16,10 @@
     template: "#layout-template",
   
     regions: {
-      searchBox: "#search-box",
-      bookBox:   "#book-box",
-      pricesBox: "#prices-box"
+      countryBox: "#country-box",
+      searchBox:  "#search-box",
+      bookBox:    "#book-box",
+      pricesBox:  "#prices-box"
     }
     
   });
@@ -28,6 +29,34 @@
     L2BDemoApp.layout.render();
   });
   
+  var CountryModel = Backbone.Model.extend({
+    urlRoot: "http://api.127.0.0.1.xip.io:3000/country/",
+    defaults: {
+      name: ""
+    }
+  });
+  
+  var CountryView = Backbone.Marionette.ItemView.extend({
+    template: "#country-box-template",
+
+    initialize: function () {
+      console.log('Have started CountryView');
+      
+      // load the current country from API
+      this.model = new CountryModel({id: 'determineFromIPAddress'});
+      this.listenTo(this.model, "change", this.render);
+      this.model.fetch();
+    }
+  });
+  
+  L2BDemoApp.addInitializer(function () {
+    var view = new CountryView();
+    L2BDemoApp.layout.countryBox.show(view);
+    view.render();
+  });
+  
+
+
   var BookModel = Backbone.Model.extend({
     urlRoot: "http://api.127.0.0.1.xip.io:3000/books/",
     defaults: {
@@ -36,7 +65,7 @@
       author: ""
     }
   });
-  
+    
   
   var BookView = Backbone.Marionette.ItemView.extend({
     template: "#book-box-template",
