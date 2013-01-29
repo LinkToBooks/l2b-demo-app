@@ -8,7 +8,7 @@ module.exports = function () {
 
   var publicDir = __dirname + "/public";
 
-  app.use("/", express.static(publicDir));
+  app.use("/", express.static(publicDir, { maxAge: 86400 * 1000 }));
 
   app.all("*", function (req, res) {
     res.status(404);
