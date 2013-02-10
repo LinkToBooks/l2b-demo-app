@@ -8,7 +8,10 @@
   L2BDemoApp.on("initialize:after", function () {
     Backbone.history.start();
   });
-  
+
+
+  // MODELS and COllECTIONS
+
   var CountryModel = Backbone.Model.extend({
     urlRoot: "http://api.127.0.0.1.xip.io:3000/country/",
     defaults: {
@@ -17,6 +20,104 @@
       name: ''
     }
   });
+
+
+  var BookModel = Backbone.Model.extend({
+    urlRoot: "http://api.127.0.0.1.xip.io:3000/books/",
+    defaults: {
+      title: "",
+      isbn: "",
+      author: ""
+    }
+  });
+
+
+  var PriceModel = Backbone.Model.extend({
+    defaults: {
+      price: ""
+    }
+  });
+
+  var PriceCollection = Backbone.Collection.extend({
+    initialize: function (options) {
+      this.book = options.book;
+    },
+    model: PriceModel,
+    url: function () {
+      var url = this.book.url() + '/prices';
+      url += '/' + L2BDemoApp.country.get('code');
+      console.log('PriceCollection#url', url);
+      return url;
+    },
+    comparator: "price"
+  });
+
+
+  // VIEWS
+
+  var CountryView = Backbone.Marionette.ItemView.extend({
+    template: "#country-box-template",
+
+    initialize: function () {
+      this.listenTo(this.model, "change", this.render);
+    }
+  });
+
+
+  var BookView = Backbone.Marionette.ItemView.extend({
+    template: "#book-box-template",
+
+    initialize: function () {
+      this.listenTo(this.model, "change", this.render);
+    }
+  });
+
+  
+  var PriceView  = Backbone.Marionette.ItemView.extend({
+    template: "#price-template"
+  });
+
+
+  var PriceEmptyView  = Backbone.Marionette.ItemView.extend({
+    template: "#price-none-template"
+  });
+
+  
+  var PriceListView = Backbone.Marionette.CollectionView.extend({
+    itemView: PriceView,
+    emptyView: PriceEmptyView,
+    
+    render: function () {
+      console.log('PriceListView#render');
+      return this;
+    }
+  });
+  
+  
+  var SearchView = Backbone.Marionette.ItemView.extend({
+    template: "#search-box-template",
+
+    events : {
+      "submit form": "doSearch"
+    },
+    
+    ui: {
+      isbnInput: "input[name=isbn]"
+    },
+    
+    doSearch: function (e) {
+      e.preventDefault();
+  
+      var isbn = this.ui.isbnInput.val();
+  
+      appRouter.navigate("isbn/" + isbn, {trigger: true});
+    }
+  });
+  
+
+
+
+
 
   L2BDemoApp.addInitializer(function () {
     var app = this;
@@ -57,13 +158,6 @@
     L2BDemoApp.layout.render();
   });  
   
-  var CountryView = Backbone.Marionette.ItemView.extend({
-    template: "#country-box-template",
-
-    initialize: function () {
-      this.listenTo(this.model, "change", this.render);
-    }
-  });
   
   L2BDemoApp.addInitializer(function () {
     var view = new CountryView({ model: this.country });
@@ -72,63 +166,6 @@
   });
   
 
-
-  var BookModel = Backbone.Model.extend({
-    urlRoot: "http://api.127.0.0.1.xip.io:3000/books/",
-    defaults: {
-      title: "",
-      isbn: "",
-      author: ""
-    }
-  });
-    
-  
-  var BookView = Backbone.Marionette.ItemView.extend({
-    template: "#book-box-template",
-
-    initialize: function () {
-      this.listenTo(this.model, "change", this.render);
-    }
-  });
-  
-  var PriceView  = Backbone.Marionette.ItemView.extend({
-    template: "#price-template"
-  });
-  
-  var PriceEmptyView  = Backbone.Marionette.ItemView.extend({
-    template: "#price-none-template"
-  });
-  
-  var PricesView = Backbone.Marionette.CollectionView.extend({
-    itemView: PriceView,
-    emptyView: PriceEmptyView,
-    
-    render: function () {
-      console.log('PricesView#render');
-      return this;
-    }
-  });
-  
-  var PriceModel = Backbone.Model.extend({
-    defaults: {
-      price: ""
-    }
-  });
-  
-  var PriceCollection = Backbone.Collection.extend({
-    initialize: function (options) {
-      this.book = options.book;
-    },
-    model: PriceModel,
-    url: function () {
-      var url = this.book.url() + '/prices';
-      url += '/' + L2BDemoApp.country.get('code');
-      console.log('PriceCollection#url', url);
-      return url;
-    },
-    comparator: "price"
-  });
-  
   var Router = Backbone.Router.extend({
     routes: {
       "isbn/:isbn": "isbnDisplay"
@@ -147,33 +184,15 @@
       var prices = new PriceCollection({ book: book });
       prices.fetch();
       L2BDemoApp.layout.pricesBox.show(
-        new PricesView({ collection: prices })
+        new PriceListView({ collection: prices })
       );
 
     }
   });
   
+
   var appRouter = new Router();
   
-  var SearchView = Backbone.Marionette.ItemView.extend({
-    template: "#search-box-template",
-
-    events : {
-      "submit form": "doSearch"
-    },
-    
-    ui: {
-      isbnInput: "input[name=isbn]"
-    },
-    
-    doSearch: function (e) {
-      e.preventDefault();
-  
-      var isbn = this.ui.isbnInput.val();
-  
-      appRouter.navigate("isbn/" + isbn, {trigger: true});
-    }
-  });
 
   L2BDemoApp.addInitializer(function () {
     var view = new SearchView();
@@ -181,9 +200,11 @@
     view.render();
   });
   
+
   $(function () {
     L2BDemoApp.start();
   });
+
 
 })();
 
