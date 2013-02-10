@@ -1,6 +1,4 @@
-/*global Backbone:false, $:false */
-
-(function () {
+define(function () {
   "use strict";
   
   var L2BDemoApp = new Backbone.Marionette.Application();
@@ -205,6 +203,6 @@
     L2BDemoApp.start();
   });
 
-
-})();
+  return L2BDemoApp;
+});
 
