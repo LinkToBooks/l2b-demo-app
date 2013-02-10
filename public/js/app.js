@@ -9,6 +9,34 @@
     Backbone.history.start();
   });
   
+  var CountryModel = Backbone.Model.extend({
+    urlRoot: "http://api.127.0.0.1.xip.io:3000/country/",
+    defaults: {
+      id: 'determineFromIPAddress',
+      code: '',
+      name: ''
+    }
+  });
+
+  L2BDemoApp.addInitializer(function () {
+    var app = this;
+    
+    // load the current country from API
+    var country = new CountryModel({
+      id: 'determineFromIPAddress',
+    });    
+    app.country = country;
+    country.fetch();    
+    
+    country.on('change', function () {
+      app.trigger('preReqChanged', 'country', this);
+    });
+    
+    app.on('preReqChanged', function (what, object) {
+      console.log(what, object);
+    });
+  });
+
   var Layout = Backbone.Marionette.Layout.extend({
     
     el: "#content",
@@ -27,30 +55,18 @@
   L2BDemoApp.addInitializer(function () {
     L2BDemoApp.layout = new Layout();
     L2BDemoApp.layout.render();
-  });
-  
-  var CountryModel = Backbone.Model.extend({
-    urlRoot: "http://api.127.0.0.1.xip.io:3000/country/",
-    defaults: {
-      name: ""
-    }
-  });
+  });  
   
   var CountryView = Backbone.Marionette.ItemView.extend({
     template: "#country-box-template",
 
     initialize: function () {
-      console.log('Have started CountryView');
-      
-      // load the current country from API
-      this.model = new CountryModel({id: 'determineFromIPAddress'});
       this.listenTo(this.model, "change", this.render);
-      this.model.fetch();
     }
   });
   
   L2BDemoApp.addInitializer(function () {
-    var view = new CountryView();
+    var view = new CountryView({ model: this.country });
     L2BDemoApp.layout.countryBox.show(view);
     view.render();
   });
@@ -85,7 +101,12 @@
   
   var PricesView = Backbone.Marionette.CollectionView.extend({
     itemView: PriceView,
-    emptyView: PriceEmptyView
+    emptyView: PriceEmptyView,
+    
+    render: function () {
+      console.log('PricesView#render');
+      return this;
+    }
   });
   
   var PriceModel = Backbone.Model.extend({
@@ -95,7 +116,16 @@
   });
   
   var PriceCollection = Backbone.Collection.extend({
+    initialize: function (options) {
+      this.book = options.book;
+    },
     model: PriceModel,
+    url: function () {
+      var url = this.book.url() + '/prices';
+      url += '/' + L2BDemoApp.country.get('code');
+      console.log('PriceCollection#url', url);
+      return url;
+    },
     comparator: "price"
   });
   
@@ -114,8 +144,7 @@
       );
 
       // Get the prices
-      var prices = new PriceCollection();
-      prices.url = book.url() + "/prices";
+      var prices = new PriceCollection({ book: book });
       prices.fetch();
       L2BDemoApp.layout.pricesBox.show(
         new PricesView({ collection: prices })
