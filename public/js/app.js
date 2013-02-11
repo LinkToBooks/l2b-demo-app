@@ -1,53 +1,10 @@
-define(["jquery", "backbone", "backbone.marionette"], function ($, Backbone) {
+define(["jquery", "backbone", "models", "backbone.marionette"], function ($, Backbone, models) {
   "use strict";
   
   var L2BDemoApp = new Backbone.Marionette.Application();
 
   L2BDemoApp.on("initialize:after", function () {
     Backbone.history.start();
-  });
-
-
-  // MODELS and COllECTIONS
-
-  var CountryModel = Backbone.Model.extend({
-    urlRoot: "http://api.127.0.0.1.xip.io:3000/country/",
-    defaults: {
-      id: "determineFromIPAddress",
-      code: "",
-      name: ""
-    }
-  });
-
-
-  var BookModel = Backbone.Model.extend({
-    urlRoot: "http://api.127.0.0.1.xip.io:3000/books/",
-    defaults: {
-      title: "",
-      isbn: "",
-      author: ""
-    }
-  });
-
-
-  var PriceModel = Backbone.Model.extend({
-    defaults: {
-      price: ""
-    }
-  });
-
-  var PriceCollection = Backbone.Collection.extend({
-    initialize: function (options) {
-      this.book = options.book;
-    },
-    model: PriceModel,
-    url: function () {
-      var url = this.book.url() + "/prices";
-      url += "/" + L2BDemoApp.country.get("code");
-      console.log("PriceCollection#url", url);
-      return url;
-    },
-    comparator: "price"
   });
 
 
@@ -121,7 +78,7 @@ define(["jquery", "backbone", "backbone.marionette"], function ($, Backbone) {
     var app = this;
     
     // load the current country from API
-    var country = new CountryModel({
+    var country = new models.country({
       id: "determineFromIPAddress"
     });
     app.country = country;
@@ -172,14 +129,14 @@ define(["jquery", "backbone", "backbone.marionette"], function ($, Backbone) {
     isbnDisplay: function (isbn) {
 
       // Get the book details
-      var book = new BookModel({ id: isbn });
+      var book = new models.book({ id: isbn });
       book.fetch();
       L2BDemoApp.layout.bookBox.show(
         new BookView({ model: book })
       );
 
       // Get the prices
-      var prices = new PriceCollection({ book: book });
+      var prices = new models.prices({ book: book, country: L2BDemoApp.country });
       prices.fetch();
       L2BDemoApp.layout.pricesBox.show(
         new PriceListView({ collection: prices })
