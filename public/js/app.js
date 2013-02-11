@@ -13,9 +13,9 @@ define(["jquery", "backbone", "backbone.marionette"], function ($, Backbone) {
   var CountryModel = Backbone.Model.extend({
     urlRoot: "http://api.127.0.0.1.xip.io:3000/country/",
     defaults: {
-      id: 'determineFromIPAddress',
-      code: '',
-      name: ''
+      id: "determineFromIPAddress",
+      code: "",
+      name: ""
     }
   });
 
@@ -42,9 +42,9 @@ define(["jquery", "backbone", "backbone.marionette"], function ($, Backbone) {
     },
     model: PriceModel,
     url: function () {
-      var url = this.book.url() + '/prices';
-      url += '/' + L2BDemoApp.country.get('code');
-      console.log('PriceCollection#url', url);
+      var url = this.book.url() + "/prices";
+      url += "/" + L2BDemoApp.country.get("code");
+      console.log("PriceCollection#url", url);
       return url;
     },
     comparator: "price"
@@ -86,7 +86,7 @@ define(["jquery", "backbone", "backbone.marionette"], function ($, Backbone) {
     emptyView: PriceEmptyView,
     
     render: function () {
-      console.log('PriceListView#render');
+      console.log("PriceListView#render");
       return this;
     }
   });
@@ -122,16 +122,16 @@ define(["jquery", "backbone", "backbone.marionette"], function ($, Backbone) {
     
     // load the current country from API
     var country = new CountryModel({
-      id: 'determineFromIPAddress',
-    });    
+      id: "determineFromIPAddress"
+    });
     app.country = country;
-    country.fetch();    
+    country.fetch();
     
-    country.on('change', function () {
-      app.trigger('preReqChanged', 'country', this);
+    country.on("change", function () {
+      app.trigger("preReqChanged", "country", this);
     });
     
-    app.on('preReqChanged', function (what, object) {
+    app.on("preReqChanged", function (what, object) {
       console.log(what, object);
     });
   });
@@ -154,7 +154,7 @@ define(["jquery", "backbone", "backbone.marionette"], function ($, Backbone) {
   L2BDemoApp.addInitializer(function () {
     L2BDemoApp.layout = new Layout();
     L2BDemoApp.layout.render();
-  });  
+  });
   
   
   L2BDemoApp.addInitializer(function () {

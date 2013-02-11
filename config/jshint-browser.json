@@ -2,6 +2,9 @@
   "browser":   true,
   "devel":     true,
 
+  "predef":    ["define", "require"],
+  
+
   "camelcase": true,
   "curly":     true,
   "indent":    2,
