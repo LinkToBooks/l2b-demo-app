@@ -11,25 +11,20 @@
         <link href="/stylesheets/ie.css" media="screen, projection" rel="stylesheet" type="text/css" />
     <![endif]-->
     
-    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/json2/20121008/json2.js"></script>
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js"></script>
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/0.9.10/backbone-min.js"></script>
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/backbone.marionette/1.0.0-rc4-bundled/backbone.marionette.min.js"></script>
+    <script type="text/javascript" src="/js-libs/require-2.1.4.js" data-main="/js/main.js"></script>
 
     <script type="text/javascript" charset="utf-8">
-      // If we don't have cors support in the browser then always use JSONP
-      if ( ! $.support.cors ) { 
-        var original = Backbone.sync;
-        Backbone.sync = function (method, model, options) {
-          if (!options) options = {};
-          options.dataType = 'jsonp';
-          return original(method,model,options);
-        };
-      }
+      // // If we don't have cors support in the browser then always use JSONP
+      // if ( ! $.support.cors ) { 
+      //   var original = Backbone.sync;
+      //   Backbone.sync = function (method, model, options) {
+      //     if (!options) options = {};
+      //     options.dataType = 'jsonp';
+      //     return original(method,model,options);
+      //   };
+      // }
     </script>
 
-    <script type="text/javascript" src="/js-libs/require-2.1.4.js" data-main="/js/main.js"></script>
 
   </head>
 

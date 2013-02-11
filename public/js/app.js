@@ -1,4 +1,4 @@
-define(function () {
+define(["jquery", "backbone", "backbone.marionette"], function ($, Backbone) {
   "use strict";
   
   var L2BDemoApp = new Backbone.Marionette.Application();
