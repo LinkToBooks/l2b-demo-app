@@ -58,7 +58,7 @@ define(
         );
     
         // Get the prices
-        var prices = new models.prices({ book: book, country: app.country });
+        var prices = new models.prices({ book: book, country: app.country, currency: app.currency });
         prices.fetch();
         app.layout.pricesBox.show(
           new views.prices({ collection: prices })

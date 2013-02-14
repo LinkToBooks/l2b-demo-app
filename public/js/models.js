@@ -15,6 +15,16 @@ define(["require", "backbone"], function (require, Backbone) {
   });
 
 
+  var CurrencyModel = Backbone.Model.extend({
+    urlRoot: apiRoot + "currency/", // FIXME - does not axist in api yet
+    defaults: {
+      id: "",
+      code: "",
+      name: ""
+    }
+  });
+
+
   var BookModel = Backbone.Model.extend({
     urlRoot: apiRoot + "books/",
     defaults: {
@@ -33,24 +43,26 @@ define(["require", "backbone"], function (require, Backbone) {
 
   var PriceCollection = Backbone.Collection.extend({
     initialize: function (options) {
-      this.book    = options.book;
-      this.country = options.country;
+      this.book     = options.book;
+      this.country  = options.country;
+      this.currency = options.currency;
     },
     model: PriceModel,
     url: function () {
       var url = this.book.url() + "/prices";
       url += "/" + this.country.get("code");
-      console.log("PriceCollection#url", url);
+      url += "/" + this.currency.get("code");
       return url;
     },
     comparator: "price"
   });
 
   return {
-    country: CountryModel,
-    book:    BookModel,
-    price:   PriceModel,
-    prices:  PriceCollection
+    country:  CountryModel,
+    currency: CurrencyModel,
+    book:     BookModel,
+    price:    PriceModel,
+    prices:   PriceCollection
   };
 
 });

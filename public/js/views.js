@@ -31,12 +31,7 @@ define(["backbone", "backbone.marionette"], function (Backbone) {
   
   var PriceListView = Backbone.Marionette.CollectionView.extend({
     itemView: PriceView,
-    emptyView: PriceEmptyView,
-    
-    render: function () {
-      console.log("PriceListView#render");
-      return this;
-    }
+    emptyView: PriceEmptyView
   });
   
   
