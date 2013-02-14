@@ -21,7 +21,7 @@ require.config({
 
 });
   
-require(['app'], function (app) {
+require(['l2b'], function (app) {
   'use strict';
   console.log('loaded ' + app);
 });
