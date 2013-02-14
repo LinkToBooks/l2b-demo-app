@@ -4,15 +4,8 @@ define(
     "use strict";
     
     app.addInitializer(function () {
-
-      // load the current country from API
-      var country = new models.country({
-        id: "determineFromIPAddress"
-      });
-      this.country = country;
-      country.fetch();
       
-      country.on("change", function () {
+      this.country.on("change", function () {
         app.trigger("preReqChanged", "country", this);
       });
       
