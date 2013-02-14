@@ -1,12 +1,14 @@
-define(["backbone"], function (Backbone) {
+define(["require", "backbone"], function (require, Backbone) {
   "use strict";
+  
+  var apiRoot = require.toUrl("api/");
   
   // MODELS and COllECTIONS
 
   var CountryModel = Backbone.Model.extend({
-    urlRoot: "http://api.127.0.0.1.xip.io:3000/country/",
+    urlRoot: apiRoot + "country/",
     defaults: {
-      id: "determineFromIPAddress",
+      id: "",
       code: "",
       name: ""
     }
@@ -14,7 +16,7 @@ define(["backbone"], function (Backbone) {
 
 
   var BookModel = Backbone.Model.extend({
-    urlRoot: "http://api.127.0.0.1.xip.io:3000/books/",
+    urlRoot: apiRoot + "books/",
     defaults: {
       title: "",
       isbn: "",

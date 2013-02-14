@@ -1,9 +1,9 @@
-define(["initial_config", "models", "backbone", "backbone.marionette"], function (initial_config, models, Backbone) {
+define(["initial-config", "models", "backbone", "backbone.marionette"], function (initialConfig, models, Backbone) {
   "use strict";
   
   var app = new Backbone.Marionette.Application();
 
-  app.country = new models.country( initial_config.country );
+  app.country = new models.country( initialConfig.country );
 
   app.on("initialize:after", function () {
     Backbone.history.start();
