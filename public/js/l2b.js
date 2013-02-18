@@ -1,7 +1,15 @@
 define(
-  ["jquery", "backbone", "app", "models", "views", "backbone.marionette"],
-  function ($, Backbone, app, models, views) {
+  ["jquery", "backbone", "app", "models", "views", "router", "backbone.marionette"],
+  function ($, Backbone, app, models, views, Router) {
     "use strict";
+    
+    app.on("initialize:after", function () {
+
+      // Configure all the route urls here, for ease
+      app.router = new Router();
+
+      Backbone.history.start();
+    });
     
     app.addInitializer(function () {
       
@@ -43,32 +51,6 @@ define(
     });
     
     
-    var Router = Backbone.Router.extend({
-      routes: {
-        "isbn/:isbn": "isbnDisplay"
-      },
-      
-      isbnDisplay: function (isbn) {
-    
-        // Get the book details
-        var book = new models.book({ id: isbn });
-        book.fetch();
-        app.layout.bookBox.show(
-          new views.book({ model: book })
-        );
-    
-        // Get the prices
-        var prices = new models.prices({ book: book, country: app.country, currency: app.currency });
-        prices.fetch();
-        app.layout.pricesBox.show(
-          new views.prices({ collection: prices })
-        );
-    
-      }
-    });
-    
-    
-    var appRouter = new Router();
     
     
     app.addInitializer(function () {

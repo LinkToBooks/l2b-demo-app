@@ -1,4 +1,4 @@
-define(["backbone", "backbone.marionette"], function (Backbone) {
+define(["app", "backbone", "backbone.marionette"], function (app, Backbone) {
   "use strict";
 
   var CountryView = Backbone.Marionette.ItemView.extend({
@@ -51,10 +51,10 @@ define(["backbone", "backbone.marionette"], function (Backbone) {
   
       var isbn = this.ui.isbnInput.val();
   
-      appRouter.navigate("isbn/" + isbn, {trigger: true});
+      app.router.navigate("isbn/" + isbn, {trigger: true});
     }
   });
-  
+    
   
   return {
     country: CountryView,
