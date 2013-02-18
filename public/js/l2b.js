@@ -64,6 +64,8 @@ define(
       app.start();
     });
 
-  return null;
-});
+    return null;
+
+  }
+);
 

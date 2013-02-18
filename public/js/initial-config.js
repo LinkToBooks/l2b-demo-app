@@ -1,5 +1,6 @@
-define([
-  'determineFromIPAddress'  
+define(
+  [
+    "determineFromIPAddress"
   ],
   function (
     countryConfig

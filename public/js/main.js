@@ -26,6 +26,4 @@ require.config({
   
 });
   
-require(['l2b'], function (app) {
-  'use strict';
-});
+require(['l2b']);
