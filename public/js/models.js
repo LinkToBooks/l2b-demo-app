@@ -30,7 +30,7 @@ define(["require", "backbone"], function (require, Backbone) {
     defaults: {
       title: "",
       isbn: "",
-      author: ""
+      authors: []
     }
   });
 

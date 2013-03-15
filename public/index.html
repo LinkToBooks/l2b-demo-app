@@ -83,7 +83,8 @@
   <h1><%- title || 'Fetching title...' %></h1>
   
   <p>
-    <strong>author:</strong> <%- author || '???' %>
+    <strong>author(s):</strong>
+    <%- authors ? authors.join(',') : '???' %>
   </p>
   <p>
     <strong>isbn:</strong> <%- isbn || '???' %>
